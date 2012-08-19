@@ -6,15 +6,17 @@ import getopt
 def main(argv=None):
     if argv is None:
 	argv = sys.argv
-    if len(argv) < 2:
-	print("no number has been specified. exiting...")
+    if len(argv) < 3:
+	print("range has been specified. exiting...")
 	sys.exit(-1)
-    number = int(argv[1])
-    allnumbers = list();
-    n = is_happy(number, allnumbers)
-    print(n)
-    print_sequence(allnumbers) 
-    #print(allnumbers)
+    start = int(argv[1])
+    stop = int(argv[2])
+    for number in range(start, stop+1):
+	allnumbers = list()
+	n = is_happy(number, allnumbers)
+	print(str(number) + " is" + (" " if n else " NOT ") + "happy")
+	#print_sequence(allnumbers) 
+	#print(allnumbers)
 
 def is_happy(number, allnumbers):
     if number in allnumbers:
