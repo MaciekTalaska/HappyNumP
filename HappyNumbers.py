@@ -24,6 +24,12 @@ def main(argv=None):
 	    allnumbers = list()
 	    n = is_happy_quick(number, allnumbers)
 	    print("%s %s" % (number, n))
+	print()
+	print()
+	print(allsad)
+	print()
+	print()
+	print(allhappy)
 
 def is_happy(number, allnumbers):
     if number in allnumbers:
@@ -48,6 +54,7 @@ def is_happy_quick( number, allnumbers):
 	populate_sad(allnumbers)
 	return False
     if number in allnumbers:
+	populate_sad(allnumbers)
 	return False
     if number in allhappy:
 	return True
@@ -66,10 +73,14 @@ def is_happy_quick( number, allnumbers):
 
 def populate_sad( sequence ):
     global allsad
+    #allsad = list(set(allsad + sequence))
+    #allsad.sort()
     populate(allsad, sequence)
     
 def populate_happy( sequence):
-    global allsad
+    global allhappy
+    #allhappy = list(set(allhappy+sequence))
+    #allhappy.sort()
     populate(allhappy, sequence)
     
 def populate( destination, source):
