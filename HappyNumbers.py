@@ -1,3 +1,4 @@
+from __future__ import print_function
 import math
 import sys
 import getopt
@@ -12,26 +13,35 @@ def main(argv=None):
     allnumbers = list();
     n = IsHappy(number, 1, allnumbers)
     print(n)
+    #PrintSequence( allnumbers )
+    print(allnumbers)
 
 def IsHappy(number, iteration, allnumbers):
     if number in allnumbers:
-	print( str(number) + " already exists!" )
-	print( "looped after " +str(iteration) + " iterations")
-	print( "whole list: ")
-	print(allnumbers)
-	sys.exit(1)
+	allnumbers.append(number)
+	return False
     allnumbers.append(number)
-    print("input: " + str(number))
+    if number == 1:
+	return True
+    if number == 0:
+	return False
     characters = str(number)
     aux = 0
     for c in characters:
 	newnumber = int(pow(int(c), 2))
-	print( str(c) + " -> " +str(newnumber))
         aux += newnumber
-    if aux != 1:
-	return IsHappy(aux, iteration+1, allnumbers)
-    else:
-        return aux
+    return IsHappy(aux, iteration+1, allnumbers)
+
+def PrintSequence( sequence ):
+    for i in range(len(sequence)):
+	number = sequence[i]
+	msg = ''
+	if i < len(sequence)-1:
+	    msg = str(number) + " -> "
+	else:
+	    msg = str(number)
+	print( msg, end='' )
+    print()
 
 if __name__ == "__main__":
     main()
