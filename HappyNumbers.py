@@ -1,74 +1,99 @@
 from __future__ import print_function
-import math
 import sys
-import getopt
 
 allhappy = list()
 allsad = list()
+happysad = dict()
 
 def main(argv=None):
     if argv is None:
-	argv = sys.argv
+        argv = sys.argv
     if len(argv) < 3:
-	print("range has been specified. exiting...")
-	sys.exit(-1)
+        print("range has not been specified. exiting...")
+        sys.exit(-1)
     start = int(argv[1])
     stop = int(argv[2])
     if len(argv) > 3 and argv[3] == 's':
         for number in range(start, stop+1):
-	    allnumbers = list()
-	    n = is_happy(number, allnumbers)
-	    print( "%s %s" % (number, n))
+            allnumbers = list()
+            n = is_happy(number, allnumbers)
+            print( "%s %s" % (number, n))
+    if len(argv) > 3 and argv[3] == 'q':
+        for number in range(start, stop+1):
+            allnumbers = list()
+            n = is_happy_quick(number, allnumbers)
+            print("%s %s" % (number, n))
     else:
         for number in range(start, stop+1):
-	    allnumbers = list()
-	    n = is_happy_quick(number, allnumbers)
-	    print("%s %s" % (number, n))
-	print()
-	print()
-	print(allsad)
-	print()
-	print()
-	print(allhappy)
+            happysad[number] = 0
+        for number in range(start, stop+1):
+            allnumbers = list()
+            n = is_happy_dict(number, allnumbers)
+            print("%s %s" % (number, n))
 
 def is_happy(number, allnumbers):
     if number in allnumbers:
-	allnumbers.append(number)
-	return False
+        allnumbers.append(number)
+        return False
     allnumbers.append(number)
     if number == 1:
-	return True
+        return True
     if number == 0:
-	return False
+        return False
     characters = str(number)
     newnumber = 0
     for c in characters:
-	partial = int(pow(int(c), 2))
+        partial = int(pow(int(c), 2))
         newnumber += partial
     return is_happy(newnumber, allnumbers)
+
+def is_happy_dict( number, allnumbers):
+    global happysad
+    if number == 1:
+        for i in allnumbers:
+            happysad[i] = True
+        return True
+    if number == 0:
+        for i in allnumbers:
+            happysad[i] = False
+        return False
+    if number in allnumbers:
+        for i in allnumbers:
+            happysad[i] = False
+        return False 
+    value = happysad.get(number)
+    allnumbers.append(number)
+    if value != None and value != 0:
+        return happysad[number]
+    characters = str(number)
+    newnumber = 0
+    for c in characters:
+        partial = int(pow(int(c),2))
+        newnumber += partial
+    return is_happy_dict(newnumber, allnumbers)
 
 def is_happy_quick( number, allnumbers):
     global allsad
     global allhappy
     if number in allsad:
-	populate_sad(allnumbers)
-	return False
+        populate_sad(allnumbers)
+        return False
     if number in allnumbers:
-	populate_sad(allnumbers)
-	return False
+        populate_sad(allnumbers)
+        return False
     if number in allhappy:
-	return True
+        return True
     if number == 1:
-	populate_happy(allnumbers)
-	return True
+        populate_happy(allnumbers)
+        return True
     if number == 0:
-	return False
+        return False
     allnumbers.append(number)
     characters = str(number)
     newnumber = 0
     for c in characters:
-	partial = int(pow(int(c),2))
-	newnumber += partial
+        partial = int(pow(int(c),2))
+        newnumber += partial
     return is_happy_quick(newnumber, allnumbers)
 
 def populate_sad( sequence ):
@@ -85,20 +110,20 @@ def populate_happy( sequence):
     
 def populate( destination, source):
     for num in source:
-	if num not in destination:
-	    destination.append(num)
+        if num not in destination:
+            destination.append(num)
     destination.sort()
     
 
 def print_sequence( sequence ):
     for i in range(len(sequence)):
-	number = sequence[i]
-	msg = ''
-	if i < len(sequence)-1:
-	    msg = str(number) + " -> "
-	else:
-	    msg = str(number)
-	print( msg, end='' )
+        number = sequence[i]
+        msg = ''
+        if i < len(sequence)-1:
+            msg = str(number) + " -> "
+        else:
+            msg = str(number)
+        print( msg, end='' )
     print()
 
 if __name__ == "__main__":
