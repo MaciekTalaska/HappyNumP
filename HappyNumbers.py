@@ -5,6 +5,8 @@ allhappy = list()
 allsad = list()
 happysad = dict()
 
+slowhappysad = dict()
+quickhappysad = dict()
 
 def main(argv=None):
     if argv is None:
@@ -18,13 +20,25 @@ def main(argv=None):
         for number in range(start, stop + 1):
             allnumbers = list()
             n = is_happy(number, allnumbers)
+            slowhappysad[number] = n
             print("%s %s" % (number, n))
+        print('all happy:')
+        for i in slowhappysad.keys():
+            if slowhappysad.get(i):
+                print(str(i) +" ")
     if len(argv) > 3 and argv[3] == 'q':
         for number in range(start, stop + 1):
             allnumbers = list()
             n = is_happy_quick(number, allnumbers)
+            quickhappysad[number] = n
             print("%s %s" % (number, n))
-    else:
+        print('all happy:')
+        for number in quickhappysad.keys():
+            if quickhappysad.get(number):
+                print(str(number) + " ")
+    if len(argv) > 3 and argv[3] == 'd':
+        # pre-populate dictionary with empty items
+        # does that make any sense at all?
         for number in range(start, stop + 1):
             happysad[number] = 0
         for number in range(start, stop + 1):
@@ -56,21 +70,23 @@ def is_happy(number, allnumbers):
 
 def is_happy_dict(number, allnumbers):
     global happysad
+    if number == 0:
+        return False
     if number == 1:
         for i in allnumbers:
             happysad[i] = True
+        happysad[number] = True
         return True
-    if number == 0:
-        for i in allnumbers:
-            happysad[i] = False
-        return False
     if number in allnumbers:
         for i in allnumbers:
             happysad[i] = False
+        happysad[number] = False
         return False
     value = happysad.get(number)
     allnumbers.append(number)
-    if value is not None and value != 0:
+    if (value is not None) and (value != 0):
+        for number in allnumbers:
+            happysad[number] = value
         return happysad[number]
     characters = str(number)
     newnumber = 0
