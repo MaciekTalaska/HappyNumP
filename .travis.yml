@@ -1,9 +1,9 @@
 language: python
 python:
   - "2.7"
-#  - "3.2"
-#  - "pypy"
+  - "3.2"
+  - "pypy"
 #install:
-#  -
+# install is empty, as no additional modules are required
 script:
   - python -m HappyNumbersTest
