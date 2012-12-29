@@ -8,6 +8,7 @@ happysad = dict()
 slowhappysad = dict()
 quickhappysad = dict()
 
+
 def main(argv=None):
     if argv is None:
         argv = sys.argv
@@ -25,7 +26,7 @@ def main(argv=None):
         print('all happy:')
         for i in slowhappysad.keys():
             if slowhappysad.get(i):
-                print(str(i) +" ")
+                print(str(i) + " ")
     if len(argv) > 3 and argv[3] == 'q':
         for number in range(start, stop + 1):
             allnumbers = list()
@@ -51,21 +52,23 @@ def main(argv=None):
                 print(str(number) + " ")
 
 
-def is_happy(number, allnumbers):
-    if number in allnumbers:
-        allnumbers.append(number)
+def is_happy(number, all_numbers):
+    """
+    simple, naive implementation that checks if number is happy
+    """
+    if number in all_numbers:
+        all_numbers.append(number)
         return False
-    allnumbers.append(number)
+    all_numbers.append(number)
     if number == 1:
         return True
     if number == 0:
         return False
-    characters = str(number)
-    newnumber = 0
-    for c in characters:
-        partial = int(pow(int(c), 2))
-        newnumber += partial
-    return is_happy(newnumber, allnumbers)
+    new_number = 0
+    for c in str(number):
+        digit = int(pow(int(c), 2))
+        new_number += digit
+    return is_happy(new_number, all_numbers)
 
 
 def is_happy_dict(number, allnumbers):
@@ -114,11 +117,11 @@ def is_happy_quick(number, allnumbers):
         return False
     allnumbers.append(number)
     characters = str(number)
-    newnumber = 0
+    new_number = 0
     for c in characters:
         partial = int(pow(int(c), 2))
-        newnumber += partial
-    return is_happy_quick(newnumber, allnumbers)
+        new_number += partial
+    return is_happy_quick(new_number, allnumbers)
 
 
 def populate_sad(sequence):
