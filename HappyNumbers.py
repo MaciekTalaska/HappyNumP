@@ -126,15 +126,11 @@ def is_happy_quick(number, allnumbers):
 
 def populate_sad(sequence):
     global allsad
-    #allsad = list(set(allsad + sequence))
-    #allsad.sort()
     populate(allsad, sequence)
 
 
 def populate_happy(sequence):
     global allhappy
-    #allhappy = list(set(allhappy+sequence))
-    #allhappy.sort()
     populate(allhappy, sequence)
 
 
