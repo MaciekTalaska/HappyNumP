@@ -1,3 +1,4 @@
+#!/usr/bin/python
 from __future__ import print_function
 import sys
 
@@ -13,6 +14,13 @@ def main(argv=None):
     if argv is None:
         argv = sys.argv
     if len(argv) < 3:
+        print("usage:")
+        print("HappyNumbers.py <range_start> <range_end> <algorith>")
+        print("  algorithm could be:")
+        print(" 's' - standard")
+        print(" 'd' - dictionary based")
+        print(" 'q' - quick")
+        print("")
         print("range has not been specified. exiting...")
         sys.exit(-1)
     start = int(argv[1])
