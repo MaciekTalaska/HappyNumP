@@ -7,8 +7,6 @@ allsad = list()
 happysad = dict()
 
 
-
-
 def show_usage_and_exit():
     print("usage:")
     print("HappyNumbers.py <range_start> <range_end> <algorith>")
