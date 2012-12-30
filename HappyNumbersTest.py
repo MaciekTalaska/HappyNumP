@@ -1,7 +1,6 @@
 import random
 import unittest
 import HappyNumbers
-import math
 
 class SimpleHappyTests(unittest.TestCase):
     def test_1_is_always_happy(self):
