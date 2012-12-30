@@ -54,7 +54,7 @@ class DictHappyTests(unittest.TestCase):
         for i in range(1, 10):
             number = random.randint(1, 100)
             self.assertEquals(HappyNumbers.is_happy(number, list()),
-                HappyNumbers.is_happy_dict(number, list()))
+                              HappyNumbers.is_happy_dict(number, list()))
 
 
 class QuickHappyTests(unittest.TestCase):
@@ -79,13 +79,13 @@ class QuickHappyTests(unittest.TestCase):
         for power in range(1, 10):
             number = pow(10, power)
             self.assertEquals(True,
-                HappyNumbers.is_happy_quick(number, list()))
+                              HappyNumbers.is_happy_quick(number, list()))
 
     def test_check_random_numbers(self):
         for i in range(1, 10):
             number = random.randint(1, 100)
             self.assertEquals(HappyNumbers.is_happy(number, list()),
-                HappyNumbers.is_happy_quick(number, list()))
+                              HappyNumbers.is_happy_quick(number, list()))
 
 if __name__ == '__main__':
     unittest.main()
