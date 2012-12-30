@@ -81,3 +81,6 @@ class QuickHappyTests(unittest.TestCase):
         for i in range(1,10):
             number = random.randint(1,100)
             self.assertEquals(HappyNumbers.is_happy(number,list()), HappyNumbers.is_happy_quick(number, list()))
+
+if __name__=='__main__':
+    unittest.main()

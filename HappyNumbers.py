@@ -6,58 +6,75 @@ allhappy = list()
 allsad = list()
 happysad = dict()
 
-slowhappysad = dict()
-quickhappysad = dict()
+
+
+
+def show_usage_and_exit():
+    print("usage:")
+    print("HappyNumbers.py <range_start> <range_end> <algorith>")
+    print("  algorithm could be:")
+    print(" 's' - standard")
+    print(" 'd' - dictionary based")
+    print(" 'q' - quick")
+    print("")
+    print("range has not been specified. exiting...")
+    sys.exit(-1)
+
+
+def run_is_happy_standard(start, stop):
+    standard_happy_sad = dict()
+    for number in range(start, stop + 1):
+        allnumbers = list()
+        n = is_happy(number, allnumbers)
+        standard_happy_sad[number] = n
+        print("%s %s" % (number, n))
+    print('all happy:')
+    for i in standard_happy_sad.keys():
+        if standard_happy_sad.get(i):
+            print(str(i) + " ")
+
+
+def run_is_standard_quick(start, stop):
+    quick_happy_sad = dict()
+    for number in range(start, stop + 1):
+        allnumbers = list()
+        n = is_happy_quick(number, allnumbers)
+        quick_happy_sad[number] = n
+        print("%s %s" % (number, n))
+    print('all happy:')
+    for number in quick_happy_sad.keys():
+        if quick_happy_sad.get(number):
+            print(str(number) + " ")
+
+
+def run_is_happy_dictionary(start, stop):
+    # pre-populate dictionary with empty items
+    # does that make any sense at all?
+    for number in range(start, stop + 1):
+        happysad[number] = 0
+    for number in range(start, stop + 1):
+        allnumbers = list()
+        n = is_happy_dict(number, allnumbers)
+        print("%s %s" % (number, n))
+    print('all happy:')
+    for number in happysad.keys():
+        if happysad[number] is True:
+            print(str(number) + " ")
 
 
 def main(argv=None):
     if argv is None:
         argv = sys.argv
     if len(argv) < 3:
-        print("usage:")
-        print("HappyNumbers.py <range_start> <range_end> <algorith>")
-        print("  algorithm could be:")
-        print(" 's' - standard")
-        print(" 'd' - dictionary based")
-        print(" 'q' - quick")
-        print("")
-        print("range has not been specified. exiting...")
-        sys.exit(-1)
+        show_usage_and_exit()
     start = int(argv[1])
     stop = int(argv[2])
     if len(argv) > 3 and argv[3] == 's':
-        for number in range(start, stop + 1):
-            allnumbers = list()
-            n = is_happy(number, allnumbers)
-            slowhappysad[number] = n
-            print("%s %s" % (number, n))
-        print('all happy:')
-        for i in slowhappysad.keys():
-            if slowhappysad.get(i):
-                print(str(i) + " ")
+        run_is_happy_standard(start, stop)
     if len(argv) > 3 and argv[3] == 'q':
-        for number in range(start, stop + 1):
-            allnumbers = list()
-            n = is_happy_quick(number, allnumbers)
-            quickhappysad[number] = n
-            print("%s %s" % (number, n))
-        print('all happy:')
-        for number in quickhappysad.keys():
-            if quickhappysad.get(number):
-                print(str(number) + " ")
+        run_is_standard_quick(start, stop)
     if len(argv) > 3 and argv[3] == 'd':
-        # pre-populate dictionary with empty items
-        # does that make any sense at all?
-        for number in range(start, stop + 1):
-            happysad[number] = 0
-        for number in range(start, stop + 1):
-            allnumbers = list()
-            n = is_happy_dict(number, allnumbers)
-            print("%s %s" % (number, n))
-        print('all happy:')
-        for number in happysad.keys():
-            if happysad[number] is True:
-                print(str(number) + " ")
+        run_is_happy_dictionary(start, stop)
 
 
 def is_happy(number, all_numbers):
@@ -72,11 +89,11 @@ def is_happy(number, all_numbers):
         return True
     if number == 0:
         return False
-    new_number = 0
+    newnumber = 0
     for c in str(number):
         digit = int(pow(int(c), 2))
-        new_number += digit
-    return is_happy(new_number, all_numbers)
+        newnumber += digit
+    return is_happy(newnumber, all_numbers)
 
 
 def is_happy_dict(number, allnumbers):
@@ -108,8 +125,6 @@ def is_happy_dict(number, allnumbers):
 
 
 def is_happy_quick(number, allnumbers):
-    global allsad
-    global allhappy
     if number in allsad:
         populate_sad(allnumbers)
         return False
