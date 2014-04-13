@@ -9,7 +9,7 @@ happysad = dict()
 
 def show_usage_and_exit():
     print("usage:")
-    print("HappyNumbers.py <range_start> <range_end> <algorith>")
+    print("HappyNumbers.py <range_start> <range_end> <algorithm>")
     print("  algorithm could be:")
     print(" 's' - standard")
     print(" 'd' - dictionary based")
@@ -75,6 +75,14 @@ def main(argv=None):
         run_is_happy_dictionary(start, stop)
 
 
+def string_to_number(number):
+    newnumber = 0
+    for c in str(number):
+        digit = int(pow(int(c), 2))
+        newnumber += digit
+    return newnumber
+
+
 def is_happy(number, all_numbers):
     """
     simple, naive implementation that checks if number is happy
@@ -87,10 +95,7 @@ def is_happy(number, all_numbers):
         return True
     if number == 0:
         return False
-    newnumber = 0
-    for c in str(number):
-        digit = int(pow(int(c), 2))
-        newnumber += digit
+    newnumber = string_to_number(str(number))
     return is_happy(newnumber, all_numbers)
 
 
@@ -115,10 +120,7 @@ def is_happy_dict(number, allnumbers):
             happysad[number] = value
         return happysad[number]
     characters = str(number)
-    newnumber = 0
-    for c in characters:
-        partial = int(pow(int(c), 2))
-        newnumber += partial
+    newnumber = string_to_number(characters)
     return is_happy_dict(newnumber, allnumbers)
 
 
@@ -138,10 +140,7 @@ def is_happy_quick(number, allnumbers):
         return False
     allnumbers.append(number)
     characters = str(number)
-    new_number = 0
-    for c in characters:
-        partial = int(pow(int(c), 2))
-        new_number += partial
+    new_number = string_to_number(characters)
     return is_happy_quick(new_number, allnumbers)
 
 
